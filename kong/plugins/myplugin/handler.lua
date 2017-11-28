@@ -9,6 +9,7 @@ local plugin_name = ({...})[1]:match("^kong%.plugins%.([^%.]+)")
 
 -- load the base plugin object and create a subclass
 local plugin = require("kong.plugins.base_plugin"):extend()
+local get_config = require("kong.plugins." .. plugin_name .. ".config_migrate")
 
 -- constructor
 function plugin:new()
@@ -41,6 +42,7 @@ end --]]
 --[[ runs in the ssl_certificate_by_lua_block handler
 function plugin:certificate(plugin_conf)
   plugin.super.access(self)
+  plugin_conf = get_config(plugin_conf)  -- perform any migration if necessary
 
   -- your custom code here
   
@@ -52,6 +54,7 @@ end --]]
 -- configured as a global plugin!
 function plugin:rewrite(plugin_conf)
   plugin.super.rewrite(self)
+  plugin_conf = get_config(plugin_conf)  -- perform any migration if necessary
 
   -- your custom code here
   
@@ -60,6 +63,7 @@ end --]]
 ---[[ runs in the 'access_by_lua_block'
 function plugin:access(plugin_conf)
   plugin.super.access(self)
+  plugin_conf = get_config(plugin_conf)  -- perform any migration if necessary
 
   -- your custom code here
   ngx.req.set_header("Hello-World", "this is on a request")
@@ -69,6 +73,7 @@ end --]]
 ---[[ runs in the 'header_filter_by_lua_block'
 function plugin:header_filter(plugin_conf)
   plugin.super.access(self)
+  plugin_conf = get_config(plugin_conf)  -- perform any migration if necessary
 
   -- your custom code here, for example;
   ngx.header["Bye-World"] = "this is on the response"
@@ -78,6 +83,7 @@ end --]]
 --[[ runs in the 'body_filter_by_lua_block'
 function plugin:body_filter(plugin_conf)
   plugin.super.access(self)
+  plugin_conf = get_config(plugin_conf)  -- perform any migration if necessary
 
   -- your custom code here
   
@@ -86,6 +92,7 @@ end --]]
 --[[ runs in the 'log_by_lua_block'
 function plugin:log(plugin_conf)
   plugin.super.access(self)
+  plugin_conf = get_config(plugin_conf)  -- perform any migration if necessary
 
   -- your custom code here
   
