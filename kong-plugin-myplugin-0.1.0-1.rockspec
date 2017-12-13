@@ -30,6 +30,9 @@ build = {
   modules = {
     ["kong.plugins."..pluginName..".handler"] = "kong/plugins/"..pluginName.."/handler.lua",
     ["kong.plugins."..pluginName..".schema"] = "kong/plugins/"..pluginName.."/schema.lua",
-    ["kong.plugins."..pluginName..".config_migrate"] = "kong/plugins/"..pluginName.."/config_migrate.lua",
+    ["kong.plugins."..pluginName..".migrations.config"] = "kong/plugins/"..pluginName.."/migrations.config.lua",
+
+-- following is temporary
+    ["kong.dao.migrations.helpers2"] = "kong/dao/migrations/helpers2.lua",
   }
 }
