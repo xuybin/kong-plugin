@@ -15,3 +15,9 @@ yum install lua luarocks lua-json
 
 luarocks upload kong-plugin-myplugin-0.1.0-1.rockspec --api-key=***  --force
 ```
+
+# start Kong
+``` bash
+
+
+```
